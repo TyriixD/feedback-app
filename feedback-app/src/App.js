@@ -4,13 +4,20 @@ import FeedbackData from "./data/FeedbackData";
 import FeedbackList from "./components/FeedbackList";
 
 function App() {
-  const [feedback] = useState(FeedbackData);
+  const [feedback, setFeedback] = useState(FeedbackData);
+  const estDansLaListe = (item, id) => {
+    return item.id !== id;
+  };
+
+  const deleteFeedback = (id) => {
+    setFeedback(feedback.filter((item) => estDansLaListe(item, id)));
+  };
 
   return (
     <>
       <Header text="Feedback App" />
       <div className="container">
-        <FeedbackList feedback={feedback} />
+        <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
       </div>
     </>
   );
