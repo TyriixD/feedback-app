@@ -5,11 +5,7 @@ import PropTypes from "prop-types";
 function FeedbackList({ feedback, handleDelete }) {
   function afficherFeedback(item) {
     return (
-      <FeedbackItem
-        key={item.id}
-        item={item}
-        handleDelete={handleDelete}
-      />
+      <FeedbackItem key={item.id} item={item} handleDelete={handleDelete} />
     );
   }
 
