@@ -1,27 +1,41 @@
 import Header from "./components/Header";
-import { useState } from "react";
-import FeedbackData from "./data/FeedbackData";
 import FeedbackList from "./components/FeedbackList";
 import FeedbackStats from "./components/FeedbackStats";
-//cmd to start app ---> npm start
-function App() {
-  const [feedback, setFeedback] = useState(FeedbackData);
-  const estDansLaListe = (item, id) => {
-    return item.id !== id;
-  };
+import FeedbackForm from "./components/FeedbackForm";
+import AboutPage from "./pages/AboutPage";
+import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom'
+import AboutIconLink from "./components/AboutIconLink";
+import {FeedbackProvider} from './context/FeedbackContext'
 
-  const deleteFeedback = (id) => {
-    setFeedback(feedback.filter((item) => estDansLaListe(item, id)));
-  };
+//cmd to start app ---> npm start
+
+function App() {
 
   return (
-    <>
-      <Header text="Feedback App" />
+
+    <FeedbackProvider>
+    <Router>
+      <Link to='/'>
+        <Header text="Feedback App" />
+      </Link>
+      
       <div className="container">
-        <FeedbackStats feedback={feedback}/>
-        <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+        <Routes>
+        <Route exact path='/' element= {
+          <>
+          <FeedbackForm />
+        <FeedbackStats />
+        <FeedbackList />
+          </>
+        }>
+        </Route>
+        <Route path='/about' element={<AboutPage/>}></Route> 
+        </Routes>
+        <AboutIconLink/>
+        
       </div> 
-    </>
-  );
+    </Router> 
+    </FeedbackProvider>
+  ); 
 }
 export default App;
